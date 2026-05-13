@@ -1,0 +1,20 @@
+trigger: 
+ - main
+
+pool: may-pool
+
+stages:
+  - stage: FirstStage
+    displayName: Init
+    jobs:
+      - job: terraforminit
+        steps:
+          - task: TerraformTask@5
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              workingDirectory: '$(System.DefaultWorkingDirectory)D:\project-sid\mono-app\infra\environments\dev'
+              backendServiceArm: 'may-sc'
+              backendAzureRmStorageAccountName: 'maystg12'
+              backendAzureRmContainerName: 'maycnt12'
+              backendAzureRmKey: 'mono.tfstate'
