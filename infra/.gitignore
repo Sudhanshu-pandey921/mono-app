@@ -1,0 +1,16 @@
+# Terraform
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+crash.log
+.terraform.lock.hcl
+
+# Terraform plan files
+*.tfplan
+
+# Node
+node_modules/
+
+# Build
+dist/
+build/
