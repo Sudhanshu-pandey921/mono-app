@@ -13,8 +13,55 @@ stages:
             inputs:
               provider: 'azurerm'
               command: 'init'
-              workingDirectory: '$(System.DefaultWorkingDirectory)D:\project-sid\mono-app\infra\environments\dev'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/infra/enviroments/dev'
               backendServiceArm: 'may-sc'
               backendAzureRmStorageAccountName: 'maystg12'
               backendAzureRmContainerName: 'maycnt12'
               backendAzureRmKey: 'mono.tfstate'
+
+  - stage: SecondStage
+    displayName: Plan
+    jobs:
+      - job: terraformplan
+        steps:
+           - task: TerraformTask@5
+             inputs:
+              provider: 'azurerm'
+              command: 'init'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/infra/enviroments/dev'
+              backendServiceArm: 'may-sc'
+              backendAzureRmStorageAccountName: 'maystg12'
+              backendAzureRmContainerName: 'maycnt12'
+              backendAzureRmKey: 'mono.tfstate' 
+
+           - task: TerraformTask@5
+             inputs:
+               provider: 'azurerm'
+               command: 'plan'
+               workingDirectory: '$(System.DefaultWorkingDirectory)/infra/environments/dev'
+               environmentServiceNameAzureRM: 'may-sc'
+
+  - stage: LastStage
+    displayName: Apply
+    jobs:
+      - job: terraformapply
+        steps:
+           - task: TerraformTask@5
+             inputs:
+              provider: 'azurerm'
+              command: 'init'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/infra/enviroments/dev'
+              backendServiceArm: 'may-sc'
+              backendAzureRmStorageAccountName: 'maystg12'
+              backendAzureRmContainerName: 'maycnt12'
+              backendAzureRmKey: 'mono.tfstate'
+
+           - task: TerraformTask@5
+             inputs:
+               provider: 'azurerm'
+               command: 'apply'
+               workingDirectory: '$(System.DefaultWorkingDirectory)/infra/environments/dev'
+               commandOptions: '-auto-approve'
+               environmentServiceNameAzureRM: 'may-sc'
+
+         
