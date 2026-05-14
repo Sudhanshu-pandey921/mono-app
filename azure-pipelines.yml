@@ -13,7 +13,7 @@ stages:
             inputs:
               provider: 'azurerm'
               command: 'init'
-              workingDirectory: '$(System.DefaultWorkingDirectory)/infra/enviroments/dev'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/infra/environments/dev'
               backendServiceArm: 'may-sc'
               backendAzureRmStorageAccountName: 'maystg12'
               backendAzureRmContainerName: 'maycnt12'
@@ -28,7 +28,7 @@ stages:
              inputs:
               provider: 'azurerm'
               command: 'init'
-              workingDirectory: '$(System.DefaultWorkingDirectory)/infra/enviroments/dev'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/infra/environments/dev'
               backendServiceArm: 'may-sc'
               backendAzureRmStorageAccountName: 'maystg12'
               backendAzureRmContainerName: 'maycnt12'
@@ -50,7 +50,7 @@ stages:
              inputs:
               provider: 'azurerm'
               command: 'init'
-              workingDirectory: '$(System.DefaultWorkingDirectory)/infra/enviroments/dev'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/infra/environments/dev'
               backendServiceArm: 'may-sc'
               backendAzureRmStorageAccountName: 'maystg12'
               backendAzureRmContainerName: 'maycnt12'
