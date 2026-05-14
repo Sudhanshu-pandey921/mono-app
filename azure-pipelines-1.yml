@@ -1,0 +1,13 @@
+trigger:
+ - main
+
+pool:
+ may-pool
+
+stages:
+  - stage: FirstStage
+    displayName: Init
+    jobs:
+      - job: terraforminit
+        steps:
+          
