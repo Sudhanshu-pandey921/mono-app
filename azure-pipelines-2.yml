@@ -1,0 +1,49 @@
+trigger:
+- main
+
+pool:
+  name: may-pool
+
+variables:
+  nodeVersion: '18.x'
+  appPath: 'app/ReactTodoUIMonolith'
+
+stages:
+
+
+# BUILD STAGE
+
+- stage: Build
+  displayName: Build React Application
+
+  jobs:
+  - job: BuildJob
+    displayName: Build Job
+
+    steps:
+
+    - task: NodeTool@0
+      inputs:
+        versionSpec: $(nodeVersion)
+      displayName: Install NodeJS
+
+    - script: npm install
+      workingDirectory: '$(System.DefaultWorkingDirectory)/$(appPath)'
+      displayName: Install Dependencies
+
+    - script: npm run build
+      workingDirectory: '$(System.DefaultWorkingDirectory)/$(appPath)'
+      displayName: Build React App
+
+    - task: CopyFiles@2
+      inputs:
+        SourceFolder: '$(System.DefaultWorkingDirectory)/$(appPath)/build'
+        Contents: '**'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)'
+      displayName: Copy Build Files
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'react-build'
+      displayName: Publish Artifact
